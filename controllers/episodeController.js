@@ -23,7 +23,12 @@ export const fomatItem = (req, res) => {
 			.map(({ image, slug, title }) => {
 				return { image: image.showImage, slug, title }
 			})
-		res.json({ response: response })
+		res
+			.status(200)
+			.set({
+				'Content-Type': 'application/json',
+			})
+			.json({ response: response })
 	} else {
 		res.status(400).json({
 			error: 'Could not decode request: JSON parsing failed',
