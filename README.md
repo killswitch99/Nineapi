@@ -11,7 +11,7 @@ Installation guide on local machine
 
 I have used express.js which is a node framework-
 
-- Hosted on -
+- Hosted on - https://nine-shows.herokuapp.com/
 - Accepts get req only
 - Returns list of shows with a key array
 
