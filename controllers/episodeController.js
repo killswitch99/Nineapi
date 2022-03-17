@@ -1,6 +1,6 @@
 //@desc  return image , slug and title
 //@route get request
-export const fomatItem = (req, res) => {
+export const fomatItem = async (req, res) => {
 	const isJson = (item) => {
 		item = typeof item !== 'string' ? JSON.stringify(item) : item
 		try {
@@ -18,15 +18,20 @@ export const fomatItem = (req, res) => {
 		req.body.hasOwnProperty('payload') &&
 		req.body.payload.length
 	) {
-		const response = req.body.payload
+		const response = await req.body.payload
 			.filter((e) => e.drm != 'false' && e.episodeCount > 0)
 			.map(({ image, slug, title }) => {
 				return { image: image.showImage, slug, title }
 			})
 		res.status(200).contentType('application/json').json({ response: response })
 	} else {
-		res.status(400).contentType('application/json').json({
-			error: 'Could not decode request: JSON parsing failed',
-		})
+		res
+			.status(400)
+			.contentType('application/json')
+			.json({
+				response: `${JSON.stringify(req.body).replace(/\\n/g, '')}`,
+				error: 'Could not decode request: JSON parsing failed',
+			})
+		console.log(req)
 	}
 }
