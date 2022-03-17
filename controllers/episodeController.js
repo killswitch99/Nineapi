@@ -1,7 +1,7 @@
 //@desc  return image , slug and title
 //@route get request
 export const fomatItem = (req, res) => {
-	console.log(req)
+	console.log(req.body)
 	if (req.body.hasOwnProperty('payload') && req.body.payload.length) {
 		const response = req.body.payload
 			.filter((e) => e.drm != 'false' && e.episodeCount > 0)
